@@ -1,0 +1,111 @@
+%%
+%% 研究報告用スイッチ
+%% [techrep]
+%%
+%% 欧文表記無しのスイッチ(etitle,eabstractは任意)
+%% [noauthor]
+%%
+
+\documentclass[submit,techrep,noauthor,platex,dvipdfmx]{ipsj}
+
+% フォントと日本語関連パッケージ
+% \usepackage[deluxe,uplatex]{otf}
+% \usepackage[T1]{fontenc}
+
+% グラフィックス関連
+\usepackage[dvipdfmx]{graphicx} 
+\usepackage{subcaption}
+
+% 数式関連
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage{amssymb}
+
+% その他のパッケージ
+\usepackage{url}
+
+% hyperrefは最後に読み込む
+% \usepackage[dvipdfmx,setpagesize=false]{hyperref}
+
+\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
+\def\|{\verb|}
+
+\setcounter{巻数}{59}
+\setcounter{号数}{1}
+\setcounter{page}{1}
+
+
+% \受付{2016}{3}{4}
+% \再受付{2015}{7}{16}   %省略可能
+% \再再受付{2015}{7}{20} %省略可能
+% \再再受付{2015}{11}{20} %省略可能
+% \採録{2016}{8}{1}
+
+
+
+
+\begin{document}
+
+
+\title{Nタプルネットワークの大きさと学習性能の関係:ミニ2048を用いた実験・評価}
+
+\etitle{}
+
+% \affiliate{IPSJ}{情報処理学会\\
+% IPSJ, Chiyoda, Tokyo 101--0062, Japan}
+
+
+\paffiliate{JU}{高知工科大学\\
+Kochi University of Technology\\}
+
+\author{寺内 俊輔}{Terauchi Shunsuke}{IPSJ}[295141a@gs.kochi-tech.ac.jp]
+\author{松崎 公紀}{Matsuzaki Koki}{IPSJ}[matsuzaki.kiminori@kochi-tech.ac.jp]
+
+\begin{abstract}
+    2048では、NタプルネットワークとTD学習を拡張した手法及びExpectimax探索の組み合わせにより優れたプレイヤが作られている。
+    本研究では、ミニ2048において構築可能な1タプルから9タプルまでの各タプル全てからなる組み合わせと、それぞれにおける妥当な形状を用いて、Nタプルネットワークの大きさと学習性能の関係を実験的に評価する。
+    特に最先端プレイヤの開発で用いられた手法の観点から、その効果と特性について考察を行う。
+\end{abstract}
+
+
+\begin{jkeyword}
+2048, Nタプルネットワーク, Expectimax探索, ミニ2048, 強化学習
+\end{jkeyword}
+
+% \begin{eabstract}
+% This document is a guide to prepare a draft for submitting to IPSJ
+% Journal, and the final camera-ready manuscript of a paper to appear in
+% IPSJ Journal, using {\LaTeX} and special style files.  Since this
+% document itself is produced with the style files, it will help you to
+% refer its source file which is distributed with the style files.
+% \end{eabstract}
+
+% \begin{ekeyword}
+% IPSJ Journal, \LaTeX, style files, ``Dos and Don'ts'' list
+% \end{ekeyword}
+\maketitle
+\input{introduction}
+\input{mini2048}
+\input{player}
+\input{experiments}
+\input{conclusion}
+
+\begin{acknowledgment}
+    本研究はJSPS科研費 JP23K11383 の助成を受けたものである．
+    % 本研究を進めるにあたり，高知工科大学 情報学群の松崎公紀教授には，貴重なご指導と多くの助言を賜りました．心より感謝申し上げます．
+    % また，本論文の副査をお引き受けいただいた Wei Ting Han 教授，竹内聖悟 講師にも，深く感謝申し上げます．
+    % さらに，研究室の同期である金子氏とは，研究環境の整備を共同で行い，多くの議論を重ねました．その協力に心より感謝いたします．
+\end{acknowledgment}
+
+% BibTeX を使用する場合 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\newblock{}
+
+% \input{ref.bib}
+\bibliographystyle{unsrt}
+\bibliography{ref}
+
+
+
+\end{document}
