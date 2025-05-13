@@ -1,4 +1,4 @@
-\section{実験と分析}
+\section{実験}
 
 本研究では、ミニ2048におけるNタプルネットワークの学習性能を多角的に分析するため、
 構造の異なる複数のプレイヤを構築し、GreedyおよびExpectimax探索による評価を行った。
@@ -11,280 +11,276 @@
 乱数シードを変えて10体ずつ学習させた。結果として、
 $15$タプル構成$\times 3$回（OIの初期値）$\times 10$回（シード）で，計$450$体のプレイヤが作成された。
 
-これらのプレイヤに対して、GreedyプレイおよびExpectimax探索（深さ2〜5）による1000ゲームプレイを行い、
-そのログを用いて解析を行なった。
+これらのプレイヤに対して、GreedyプレイおよびExpectimax探索（深さ2〜6）による1000ゲームプレイを行い、
+seed違いの結果をまとめた10000ゲームのログを用いて解析を行なった。
 
-図\ref{fig:score_vs_tuple_greedy}および\ref{fig:score_vs_tuple_exp5}には、GreedyプレイとExpectimax探索（深さ5）におけるタプル数の変化によるスコアの変化を示す。
-TNは各タプルにおして平均値の高かったものを選択している。
+\subsection{スコアとパラメータ数の関係}
+まず初めに図\ref{fig:score_vs_tuple_OI0}から図\ref{fig:score_vs_tuple_OI5400}は、OIの初期値を変えた場合のGreedyプレイでのパラメータ数の対数とスコアの関係を示している。
+グラフの点がseedごとの平均スコアの平均,点から伸びる線がseedごとの平均スコアの標準偏差を示している。
 
-図\ref{fig:score_vs_tuple_greedy}を見ると、GreedyプレイにおいてはNT5までのタプル数でスコアが向上していることがわかる。
-NT5~NT7までOI=1200だけ横ばい、それ以外は下落している、NT8以降はすべてスコアが低下している。
-これは図\ref{fig:score_vs_tuple_exp5}のExpectimax深さ5も同様の傾向が見られ、図では示していないが、
-Expectimax深さ2~4についても同様の傾向が見られた。
-またNT6以降のスコアはGreedy、Expectimax深さ2~5のいずれもOI=1200のスコアが高くなっている。
-これはOI=1200の初期値が効果的に作用した結果であると考えられる。
+いずれのグラフも放物線を描いており、NT5かNT6を頂点とすることが確認できた。
+また、図\ref{fig:score_vs_tuple_OI0}OIの初期値を0に設定した場合、3種類のOIの初期値の中で平均の標準偏差が大きいものがいくつか目立ち学習の安定性に影響を与えることが確認できた。
+OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}、図\ref{fig:score_vs_tuple_OI5400})に設定した場合、スコアのばらつきは小さくなり、
+スコアの向上がパラメータ数を増加させても続き、放物線の頂点が右に移動する傾向が見られた。
+平均の平均自体はあまり大きく変化しなかったが、図\ref{fig:score_vs_tuple_OI1200}OIの初期値を1200に設定したものが良い傾向にあった。
 
-ではそれぞれのタプルについて、
-OIの値が変わることでどのようなスコアの変化があったか、
-またそれらを用いてExpectimax探索を行った場合にどのようなスコアの変化があったかを
-について詳しく見ていく。
-
-NT1とNT2についてはOIの値が変わってもスコアの変化はほぼ見られなかった。
-Expectimax探索の深さを深くした場合については、スコアは探索の深さに比例して上昇している。
-図\ref{fig:exp_trendsNT3}を見るとNT3はTN=2673の方がいずれのOIでもTN144と比べてスコアが高くなってる。
-探索の深さを深くした場合については、同様にスコアは探索の深さに比例して上昇しているが上下関係は変わらない。
-図\ref{fig:exp_trendsNT4}を見るとNT4はTN=44755、OI=0のスコアが最も低く、それに続いてTN=301の各OIの値が続き、TN=44755の値が続いている。
-探索の深さを深くした場合スコアの順序が入れ替わっている。
-図\ref{fig:exp_trendsNT5}を見るとNT5はTN=896673が高く、TN=298が低い傾向にあり、
-Expectimax探索の深さを深くした場合で少しスコアの差が縮まっている。
-図\ref{fig:exp_trendsNT6}を見るとNT6はOIごとのスコアがちかく、TN間の差がほぼない、これはTN=16で盤面の情報を保存するのに十分なパラメータ数が
-あるからだと考えられる。探索の深さを深くした場合の変化は小さいがスコアの向上が見られた。
-図\ref{fig:exp_trendsNT7}、図\ref{fig:exp_trendsNT8}を見るとNT7、NT8についてはこれまでの傾向と異なりTN=0の方がスコアが高くなっている。
-これにより、パラメータ数を増やして一つの盤面から得られる情報を増やしても
-得点の向上につながらないことが分かる。
-またNT8とNT9はNT7と比べて明確にスコアが低下している、
-これは盤面の汎化性能が低下することが原因だと考えられる。
-NT9についてはOI=1200のスコアが高くなっている。
-
-全体の傾向としてOIの値が探索に与える影響は感じられなかったが、
-OI=1200のスコアが高くなっていることからOIの初期値が高すぎず低すぎない適切な値に設定することが
-スコアの向上に寄与していることが分かる。
-またタプルサイズを増やすことやタプルの数を増やすことは、一定程度までは得点に寄与するが、
-あるラインを超えると逆にスコアが低下することが分かる。
-% 図は順番に挿入
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT1.pdf}
-%     \caption{実験結果の傾向NT1}
-%     \label{fig:exp_trendsNT1}
-% \end{figure}
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT2.pdf}
-%     \caption{実験結果の傾向NT2}
-%     \label{fig:exp_trendsNT2}
-% \end{figure}
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{pdf/best_tn_scores_exp1.pdf}
-    \caption{タプル数の変化によるスコアの変化（Greedy プレイ）}
-    \label{fig:score_vs_tuple_greedy}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI0_EXP1.pdf}
+        \caption{タプル数の変化によるスコアの変化（OI=0）}
+        \label{fig:score_vs_tuple_OI0}
+    \end{subfigure}
+
+    \vspace{1em}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI1200_EXP1.pdf}
+        \caption{タプル数の変化によるスコアの変化（OI=1200）}
+        \label{fig:score_vs_tuple_OI1200}
+    \end{subfigure}
+
+    \vspace{1em}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI5400_EXP1.pdf}
+        \caption{タプル数の変化によるスコアの変化（OI=5400）}
+        \label{fig:score_vs_tuple_OI5400}
+    \end{subfigure}
+
+    \caption{OIの初期値ごとのタプル数の変化によるスコアの変化}
+    \label{fig:score_vs_tuple_all}
 \end{figure}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{pdf/best_tn_scores_exp5.pdf}
-    \caption{タプル数の変化によるスコアの変化（Expectimax 深さ5）}
-    \label{fig:score_vs_tuple_exp5}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI0_EXP6.pdf}
+        \caption{タプル数の変化によるスコアの変化 深さ6（OI=0）}
+        \label{fig:score_vs_tuple_OI0_EXP6}
+    \end{subfigure}
+
+    \vspace{1em}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI1200_EXP6.pdf}
+        \caption{タプル数の変化によるスコアの変化 深さ6（OI=1200）}
+        \label{fig:score_vs_tuple_OI1200_EXP6}
+    \end{subfigure}
+
+    \vspace{1em}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI5400_EXP6.pdf}
+        \caption{タプル数の変化によるスコアの変化 深さ6（OI=5400）}
+        \label{fig:score_vs_tuple_OI5400_EXP6}
+    \end{subfigure}
+
+    \caption{Expectimax深さ6でのOIの初期値ごとのタプル数の変化によるスコアの変化}
+    \label{fig:score_vs_tuple_all_EXP6}
 \end{figure}
+
+図\ref{fig:score_vs_tuple_OI0_EXP6}から図\ref{fig:score_vs_tuple_OI5400_EXP6}は、OIの初期値を変えた場合の各プレイヤとExpectimaxの深さ6を組み合わせたプレイヤでの、
+パラメータ数の対数とスコアの関係を示している。
+いずれのグラフも放物線を描いていること、いずれの平均の平均のスコアもGreedyプレイのスコアよりも高いことが確認できた。
+また、OIの初期値を0に設定した場合、探索を加えてもスコアのバラつきが多いプレイヤが見られた、特にFullタプルのスコアのバラつきが大きいことが確認できた。
+これはパラメータ数が多い方が評価値の修正が起こり難く、局所最適解から抜け出しにくいのではないかと考えられる。
+またOIの初期値を1200に設定したばあいNT5MからNT7Fまでスコアにほとんど差がなく、放物線の上昇と下降の傾きが小さくなっていることが確認できた。
+これは強いプレイヤはNタプルプレイヤの現実的なスコア上限に近づいていて、ほとんど上昇しないことと、
+弱いプレイヤは探索によってスコアが上昇することを示している。
+またOIの初期値を5400に設定した場合、平均の標準偏差はとても小さくなったが、放物線の形やスコアの上限はOIの初期値0の時とあまり変わらなかった。
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT3.pdf}
-    \caption{実験結果の傾向NT3}
-    \label{fig:exp_trendsNT3}
-\end{figure}
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT4.pdf}
-    \caption{実験結果の傾向NT4}
-    \label{fig:exp_trendsNT4}
-\end{figure}
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT5.pdf}
-    \caption{実験結果の傾向NT5}
-    \label{fig:exp_trendsNT5}
-\end{figure}
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT6.pdf}
-    \caption{実験結果の傾向NT6}
-    \label{fig:exp_trendsNT6}
-\end{figure}
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT7.pdf}
-    \caption{実験結果の傾向NT7}
-    \label{fig:exp_trendsNT7}
-\end{figure}
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT8.pdf}
-    \caption{実験結果の傾向NT8}
-    \label{fig:exp_trendsNT8}
-\end{figure}
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=\linewidth]{pdf/exp_trends/combined_trends_NT9.pdf}
-%     \caption{実験結果の傾向NT9}
-%     \label{fig:exp_trendsNT9}
-% \end{figure}
+    % OI=0の比較
+    \begin{subfigure}[b]{0.49\linewidth}
+        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI0.pdf}
+        \caption{NT5M,OI=0学習推移}
+        \label{fig:NT5F_OI0_learning_progress}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\linewidth}
+        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI0.pdf}
+        \caption{NT7F,OI=0学習推移}
+        \label{fig:NT7F_OI0_learning_progress}
+    \end{subfigure}
 
-NT5のTNの違いによってどのように変化するのかを見ていく、
-図\ref{fig:nt5_exp1_results}はOI=1200のGreedyプレイの場合は、
-TN=896673の方がスコアが高くなっている。
-正確度はTN896673の方が少し高くなっているが、絶対誤差はほぼ差がない。
-生存率を見るとprogress=250辺りの難易度の高い領域で生まれた生存率の差が、
-正確度の差分を見ると、0.2ポイントほどprogress300辺りで差があるが、
-progress250辺りの難易度の高い領域では正確度の差分があまりないことがわかる。
-平均得点に200点ほどの差があるが、これは絶対誤差を見るにprogress=250辺りの少し
-差がある所の積み重ねがこの差になっていると考えられる。
+    \vspace{1em}
+    % OI=1200の比較
+    \begin{subfigure}[b]{0.49\linewidth}
+        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI1200.pdf}
+        \caption{NT5M,OI=1200学習推移}
+        \label{fig:NT5M_OI1200_learning_progress}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\linewidth}
+        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI1200.pdf}
+        \caption{NT7F,OI=1200学習推移}
+        \label{fig:NT7F_OI1200_learning_progress}
+    \end{subfigure}
 
-NT8のTNの違いによってどのように変化するのかを見ていく、
-図\ref{fig:nt8_exp1_results}はOI=1200のGreedyプレイの場合は、
-TN=0の方がスコアが高くなっている。
-正確度と正確度の差分を見ると、
-序盤のprogress100~130,170~200辺りにTN6の方が正確度が高いが、
-そこの絶対誤差を見るとTN0の値がほぼ高い。
-これを見ると、TN0は間違った選択をしても評価値はあまり変わらず。
-TN6の場合は間違った選択をすると評価値が大きく変わることが読み取れる。
+    \vspace{1em}
+    % OI=5400の比較
+    \begin{subfigure}[b]{0.49\linewidth}
+        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI5400.pdf}
+        \caption{NT5M,OI=5400学習推移}
+        \label{fig:NT5M_OI5400_learning_progress}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\linewidth}
+        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI5400.pdf}
+        \caption{NT7F,OI=5400学習推移}
+        \label{fig:NT7F_OI5400_learning_progress}
+    \end{subfigure}
 
-NT5のEXP5のTNの違いによってどのように変化するのかを見ていく、
-図\ref{fig:nt5_exp5_results}はOI=1200のGreedyプレイの場合は、
-TN=896673の方がスコアが高くなっている。
-正確度はTN896673の方が高くなっているprogressが多いが、
-絶対誤差はほぼ差がない。
-生存率を見るとprogress=250辺りの難易度の高い領域少し差が生まれているが、
-平均得点の差が生まれる要因がどこにあるのか分からない。
+    \caption{NT5MとNT7Fの学習推移の比較}
+    \label{fig:learning_progress_comparison}
+\end{figure}
 
-NT8のEXP5のTNの違いによってどのように変化するのかを見ていく、
-図\ref{fig:nt8_exp5_results}はOI=1200のGreedyプレイの場合は、
-TN=0の方がスコアが高くなっている。
-正確度はTN0の方が高くなっているprogressが多いが、
-絶対誤差はほぼ差がない。
-正確度の差分を見ると波のような形で序盤の正確度が上下に揺れているが、
-その間に生存率の差が生まれている。
-絶対誤差のグラフを見ると、TN0の方が序盤少し高い場面が多いことが分かる。
+図\ref{fig:learning_progress_comparison}は、NT5MとNT7Fの学習の際のスコアの推移を示している。
+このグラフではy軸にスコア,x軸に学習回数を取り、各学習回数ごとのスコアの平均を求め、
+それを学習回数10000ごとに移動平均を取り、グラフにプロットしている。
+
+OIの初期値を0に設定した場合(図\ref{fig:NT5M_OI0_learning_progress},図\ref{fig:NT7F_OI0_learning_progress})、NT5Mは学習が進むにつれてスコアが上昇しているが、NT7Fはスコアが上昇しないことが確認できた。
+これはNT7Fが局所最適解にハマっていることを示している。
+OIの初期値を1200に設定した場合(図\ref{fig:NT5M_OI1200_learning_progress},図\ref{fig:NT7F_OI1200_learning_progress})、NT5MとNT7Fの両方のスコアの上昇が緩やかになり、
+NT5Mの場合学習途中スコアとしては約2800点ほどで一度停滞が入り、その後再び上昇に転じている。
+このスコアの停滞しているのは表\ref{specific}を見ると256タイルが完成してから512タイルが完成するまでの間であることが分かる。
+この停滞期の盤面は盤面に比較的空きタイルがあり、色んな手を選択することで効率の悪い手を選んでしまい停滞しているのではないかと考えている。
+また、NT7FはOIの初期値を1200に設定した場合、序盤のスコアの上昇が緩やかになっているのも同じ原因ではないかと考える。
+OIの初期値を5400に設定した場合(図\ref{fig:NT5M_OI5400_learning_progress},図\ref{fig:NT7F_OI5400_learning_progress})、NT5MとNT7Fの両方のスコアの上昇が緩やかになり、、両方とも途中で停滞が発生している。
+NT5Mは停滞を乗り越えて大きくスコアを上昇させているが、NT7Fは停滞が長引き大きなスコア上昇にまで至っていないので、
+学習不足であると考えている。
+
+\subsection{パラメータ数の増加によるプレイヤの挙動の変化}
+ここからOIの初期値1200のスコアが同等でパラメータ数が違うNT4FとNT8M、NT5MとNT7Fのプレイヤを比較して、
+パラメータ数の増加がプレイヤの挙動にどのような影響を与えるのかについて詳しく調べて行く。
+\begin{figure}[t]
+\centering
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/accuracy.pdf}
+    \caption{正確度}
+    \label{fig:NT4F_and_NT8M_accuracy}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/acc_diff_plot.pdf}
+    \caption{正確度の差分}
+    \label{fig:NT4F_and_NT8M_acc_diff}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/error_abs_diff_plot.pdf}
+    \caption{絶対誤差の差分}
+    \label{fig:NT4F_and_NT8M_error_abs_diff}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/survival.pdf}
+    \caption{生存率}
+    \label{fig:NT4F_and_NT8M_survival}
+\end{subfigure}
+\caption{NT4FとNT8Mの比較結果}
+\label{fig:NT4FとNT8M_results}
+\end{figure}
+
+まず初めに図\ref{fig:NT4F_and_NT8M_results}は、NT4FとNT8MのプレイヤのGreedyプレイの比較を示している。
+\ref{fig:NT4F_and_NT8M_accuracy}と\ref{fig:NT4F_and_NT8M_acc_diff}は、NT4FとNT8Mのプレイヤの正確度を示している。
+これを見ると序盤はNT4Fの方が正確度が高いが、中盤以降はどちらも抜きつ抜かれつの状態であることが分かる。
+\ref{fig:NT4F_and_NT8M_error_abs_diff}は、NT4FとNT8Mのプレイヤの絶対誤差の差分を示している。
+これを見ると、NT4Fの方がNT8M多くのprogressで絶対誤差が小さいことが分かる。
+正確度のグラフと絶対誤差のグラフを合わせてみると、NT4Fの方が後半かなり良いことがわかる。
+これは\ref{fig:NT4F_and_NT8M_survival}の生存率のグラフにも表れている。
 
 \begin{figure}[t]
 \centering
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_NT5_OI1200_compare/accuracy.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/accuracy.pdf}
     \caption{正確度}
-    \label{fig:nt5_exp1_accuracy}
+    \label{fig:NT5M_and_NT7F_accuracy}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_NT5_OI1200_compare/error_abs.pdf}
-    \caption{絶対誤差}
-    \label{fig:nt5_exp1_error_abs}
-\end{subfigure}
-% \begin{subfigure}[b]{0.49\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/merged_NT5_OI1200_compare/error_rel.pdf}
-%     \caption{相対誤差}
-%     \label{fig:nt5_exp1_error_rel}
-% \end{subfigure}
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_NT5_OI1200_compare/survival.pdf}
-    \caption{生存率}
-    \label{fig:nt5_exp1_survival}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_NT5_OI1200_compare/acc_diff_plot.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/acc_diff_plot.pdf}
     \caption{正確度の差分}
-    \label{fig:nt5_exp1_acc_diff}
+    \label{fig:NT5M_and_NT7F_acc_diff}
 \end{subfigure}
-\caption{5タプルネットワーク（EXP1）の評価結果}
-\label{fig:nt5_exp1_results}
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/error_abs_diff_plot.pdf}
+    \caption{絶対誤差の差分}
+    \label{fig:NT5M_and_NT7F_error_abs_diff}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/survival.pdf}
+    \caption{生存率}
+    \label{fig:NT5M_and_NT7F_survival}
+\end{subfigure}
+\caption{NT5MとNT7Fの比較結果}
+\label{fig:NT5M_and_NT7F_results}
+\end{figure}
+
+次に図\ref{fig:NT5M_and_NT7F_results}は、NT5MとNT7FのプレイヤのGreedyプレイの比較を示している。
+\ref{fig:NT5M_and_NT7F_accuracy}と\ref{fig:NT5M_and_NT7F_acc_diff}を見ると
+NT5Mの方がNT7Fよりも正確度が高いことが分かる。
+\ref{fig:NT5M_and_NT7F_error_abs_diff}は、NT5MとNT7Fのプレイヤの絶対誤差の差分を示している。
+これを見ると、NT5Mの方がNT7Fよりも絶対誤差が小さいprogressが多いことが分かる。
+\ref{fig:NT5M_and_NT7F_survival}は、NT5MとNT7Fのプレイヤの生存率を示している。
+これを見るとどちらも上下を入れ替わりながら似たような形になっていることが分かる。
+
+図\ref{fig:NT4F_and_NT8M_results}と図\ref{fig:NT5M_and_NT7F_results}は、Greedyプレイの結果を示しているが、
+どちらの結果からも特徴的な形は見られなかった。
+    
+\begin{figure}[t]
+\centering
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/accuracy.pdf}
+    \caption{正確度}
+    \label{fig:EXP6_:NT4F_and_NT8M_accuracy}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/acc_diff_plot.pdf}
+    \caption{正確度の差分}
+    \label{fig:EXP6_NT4F_and_NT8M_acc_diff}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/error_abs_diff_plot.pdf}
+    \caption{絶対誤差の差分}
+    \label{fig:EXP6_NT4F_and_NT8M_error_abs_diff}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/survival.pdf}
+    \caption{生存率}
+    \label{figEXP6_:NT4F_and_NT8M_survival}
+\end{subfigure}
+\caption{NT4FとNT8Mの比較結果(深さ6)}
+\label{fig:EXP6_NT4FとNT8M_results}
 \end{figure}
     
 
 \begin{figure}[t]
 \centering
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_NT8_OI1200_compare/accuracy.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/accuracy.pdf}
     \caption{正確度}
-    \label{fig:nt8_exp1_accuracy}
+    \label{fig:EXP6_NT5M_and_NT7F_accuracy}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_NT8_OI1200_compare/error_abs.pdf}
-    \caption{絶対誤差}
-    \label{fig:nt8_exp1_error_abs}
-\end{subfigure}
-% \begin{subfigure}[b]{0.49\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/merged_NT8_OI1200_compare/error_rel.pdf}
-%     \caption{相対誤差}
-%     \label{fig:nt8_exp1_error_rel}
-% \end{subfigure}
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_NT8_OI1200_compare/survival.pdf}
-    \caption{生存率}
-    \label{fig:nt8_exp1_survival}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_NT8_OI1200_compare/acc_diff_plot.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/acc_diff_plot.pdf}
     \caption{正確度の差分}
-    \label{fig:nt8_exp1_acc_diff}
-\end{subfigure}
-\caption{8タプルネットワーク（EXP1）の評価結果}
-\label{fig:nt8_exp1_results}
-\end{figure}
-    
-
-\begin{figure}[t]
-\centering
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT5_OI1200_compare/accuracy.pdf}
-    \caption{正確度}
-    \label{fig:nt5_exp5_accuracy}
+    \label{fig:EXP6_NT5M_and_NT7F_acc_diff}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT5_OI1200_compare/error_abs.pdf}
-    \caption{絶対誤差}
-    \label{fig:nt5_exp5_error_abs}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/error_abs_diff_plot.pdf}
+    \caption{絶対誤差の差分}
+    \label{fig:EXP6_NT5M_and_NT7F_error_abs_diff}
 \end{subfigure}
-% \begin{subfigure}[b]{0.49\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT5_OI1200_compare/error_rel.pdf}
-%     \caption{相対誤差}
-%     \label{fig:nt5_exp5_error_rel}
-% \end{subfigure}
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT5_OI1200_compare/survival.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/survival.pdf}
     \caption{生存率}
-    \label{fig:nt5_exp5_survival}
+    \label{fig:EXP6_NT5M_and_NT7F_survival}
 \end{subfigure}
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT5_OI1200_compare/acc_diff_plot.pdf}
-    \caption{正確度の差分}
-    \label{fig:nt5_exp5_acc_diff}
-\end{subfigure}
-\caption{5タプルネットワーク（EXP5）の評価結果}
-\label{fig:nt5_exp5_results}
-\end{figure}
-    
-
-\begin{figure}[t]
-\centering
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT8_OI1200_compare/accuracy.pdf}
-    \caption{正確度}
-    \label{fig:nt8_exp5_accuracy}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT8_OI1200_compare/error_abs.pdf}
-    \caption{絶対誤差}
-    \label{fig:nt8_exp5_error_abs}
-\end{subfigure}
-% \begin{subfigure}[b]{0.49\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT8_OI1200_compare/error_rel.pdf}
-%     \caption{相対誤差}
-%     \label{fig:nt8_exp5_error_rel}
-% \end{subfigure}
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT8_OI1200_compare/survival.pdf}
-    \caption{生存率}
-    \label{fig:nt8_exp5_survival}
-\end{subfigure}
-\begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/merged_EXP_5_NT8_OI1200_compare/acc_diff_plot.pdf}
-    \caption{正確度の差分}
-    \label{fig:nt8_exp5_acc_diff}
-\end{subfigure}
-\caption{8タプルネットワーク（EXP5）の評価結果}
-\label{fig:nt8_exp5_results}
+\caption{NT5MとNT7Fの比較結果(深さ6)}
+\label{fig:EXP6_NT5M_and_NT7F_results}
 \end{figure}
 
-これらの結果からTNが変わってもプレイヤの動きにはあまり変化がなく
-学習が正確な判断ができる場合とそうではない場合があるが、
-良いタプルの組み合わせを選ぶことで、何もないような盤面でのミスが減ることが分かった。
-またタプルの数を増やすことは6タプル以上の場合有効ではないことも確認できた。
+図\ref{fig:EXP6_NT4FとNT8M_results}と図\ref{fig:EXP6_NT5M_and_NT7F_results}は、
+図\ref{fig:NT4FとNT8M_results}と図\ref{fig:NT5M_and_NT7F_results}のExpectimax探索深さ6を組み合わせたプレイヤである。
+図\ref{fig:EXP6_:NT4F_and_NT8M_accuracy}と図\ref{fig:EXP6_NT4F_and_NT8M_acc_diff}を見ると正確性はNT4Fの方が良い
+図\ref{fig:EXP_6_NT5M_and_NT7F_accuracy}と図\ref{fig:EXP_6_NT5M_and_NT7F_acc_diff}を見ると正確性はNT5Mの方が良い
+図\ref{fig:EXP6_NT4F_and_NT8M_error_abs_diff}と図\ref{fig:EXP6_NT5M_and_NT7F_error_abs_diff}は絶対誤差の差分を示していて、
+ここは探索を加えたことで上下の振れ幅がとても小さくなっていることが分かるが結局どちらの結果からも特徴的な形は見られなかった。
