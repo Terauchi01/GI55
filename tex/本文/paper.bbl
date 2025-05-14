@@ -1,67 +1,53 @@
 \begin{thebibliography}{10}
 
 \bibitem{2048}
-G.~Cirulli.
-\newblock 2048.
-\newblock \url{http://gabrielecirulli.github.io/2048/}, 2014.
-
-\bibitem{SzJa14}
-M.~Szubert and W.~Ja\'{s}kowski.
-\newblock Temporal difference learning of {N}-tuple networks for the game 2048.
-\newblock In {\em 2014 IEEE Conference on Computational Intelligence and
-  Games}, pages 1--8, 2014.
-
-\bibitem{YWHC16}
-K.-H. Yeh, I-C. Wu, C.-H. Hsueh, C.-C. Chang, C.-C. Liang, and H.~Chiang.
-\newblock Multi-stage temporal difference learning for 2048-like games.
-\newblock {\em IEEE Transactions on Computational Intelligence and AI in
-  Games}, 9(4):369--380, 2016.
-
-\bibitem{Mats17}
-K.~Matsuzaki.
-\newblock Developing 2048 player with backward temporal coherence learning and
-  restart.
-\newblock In {\em Proceedings of Fifteenth International Conference on Advances
-  in Computer Games (ACG2017)}, pages 176--187, 2017.
-
-\bibitem{Jask17}
-W.~Ja\'{s}kowski.
-\newblock Mastering 2048 with delayed temporal coherence learning, multi-stage
-  weight promotion, redundant encoding and carousel shaping.
-\newblock {\em IEEE Transactions on Computational Intelligence and AI in
-  Games}, 10(1):3--14, 2018.
+Cirulli, G.: 2048, \url{http://gabrielecirulli.github.io/2048/} (2014).
 
 \bibitem{GuCW22}
-Hung Guei, Lung-Pin Chen, and I-Chen Wu.
-\newblock Optimistic temporal difference learning for 2048.
-\newblock {\em IEEE Transactions on Games}, 14(3):478--487, 2022.
+Guei, H., Chen, L.-P. and Wu, I.-C.: Optimistic Temporal Difference Learning
+  for 2048, {\em IEEE Transactions on Games},  Vol.~14, No.~3, pp.\ 478--487
+  (2022).
 
-\bibitem{YaKN22J}
-山下 修平, 金子 知適, and 中屋敷 太一.
-\newblock 3 × 3盤面の2048の完全解析と強化学習の研究.
-\newblock In {\em 第27回ゲームプログラミングワークショップ (GPW-22)}, pages
-  1--8, 2022.
-
-\bibitem{TeKM23}
-Shunsuke Terauchi, Takaharu Kubota, and Kiminori Matsuzaki.
-\newblock Using strongly solved {Mini2048} to analyze players with {N-tuple}
-  networks.
-\newblock In {\em 2023 International Conference on Technologies and
-  Applications of Artificial Intelligence (TAAI 2023)}, 2023.
+\bibitem{Jask17}
+Ja\'{s}kowski, W.: Mastering 2048 with Delayed Temporal Coherence Learning,
+  Multi-Stage Weight Promotion, Redundant Encoding and Carousel Shaping, {\em
+  IEEE Transactions on Computational Intelligence and AI in Games},  Vol.~10,
+  No.~1, pp.\ 3--14 (2018).
 
 \bibitem{Mats16}
-K.~Matsuzaki.
-\newblock Systematic selection of n-tuple networks with consideration of
-  interinfluence for game 2048.
-\newblock In {\em Proceedings of the 2016 Conference on Technologies and
-  Applications of Artificial Intelligence (TAAI 2016)}, 2016.
+Matsuzaki, K.: Systematic Selection of N-tuple Networks with Consideration of
+  Interinfluence for Game 2048, {\em Proceedings of the 2016 Conference on
+  Technologies and Applications of Artificial Intelligence (TAAI 2016)} (2016).
+
+\bibitem{Mats17}
+Matsuzaki, K.: Developing 2048 Player with Backward Temporal Coherence Learning
+  and Restart, {\em Proceedings of Fifteenth International Conference on
+  Advances in Computer Games (ACG2017)}, pp.\ 176--187 (2017).
+
+\bibitem{SzJa14}
+Szubert, M. and Ja\'{s}kowski, W.: Temporal Difference Learning of {N}-Tuple
+  Networks for the Game 2048, {\em 2014 IEEE Conference on Computational
+  Intelligence and Games}, pp.\ 1--8 (2014).
+
+\bibitem{TeKM23}
+Terauchi, S., Kubota, T. and Matsuzaki, K.: Using Strongly Solved {Mini2048} to
+  Analyze Players with {N-tuple} Networks, {\em 2023 International Conference
+  on Technologies and Applications of Artificial Intelligence (TAAI 2023)}
+  (2023).
+
+\bibitem{YWHC16}
+Yeh, K.-H., Wu, I.-C., Hsueh, C.-H., Chang, C.-C., Liang, C.-C. and Chiang, H.:
+  Multi-stage temporal difference learning for 2048-like games, {\em IEEE
+  Transactions on Computational Intelligence and AI in Games},  Vol.~9, No.~4,
+  pp.\ 369--380 (2016).
+
+\bibitem{YaKN22J}
+山下修平，金子知適，中屋敷太一\：3 ×
+  3盤面の2048の完全解析と強化学習の研究，第27回ゲームプログラミングワークショップ
+  (GPW-22)，pp.\ 1--8 (2022).
 
 \bibitem{Terauchi24}
-寺内 俊輔 and 松崎 公紀.
-\newblock
-  ミニ2048の完全解析を用いたnタプルネットワーク+expectimax探索プレイヤの分析.
-\newblock In {\em
-  情報処理学会プログラミング・シンポジウム予稿集 (プログラミング・シンポジウム予稿集)},
-  pages 83--90, 2024.
+寺内俊輔，松崎公紀\：ミニ2048の完全解析を用いたNタプルネットワーク+Expectimax探索プレイヤの分析，情報処理学会プログラミング・シンポジウム予稿集
+  (プログラミング・シンポジウム予稿集)，pp.\ 83--90 (2024).
 
 \end{thebibliography}
