@@ -169,7 +169,7 @@ OIの初期値1200のスコアが同等でパラメータ数が違う4Fと8M，5
 
 まず初めに図\ref{fig:NT4F_and_NT8M_results}は，4Fと8MのプレイヤのGreedyプレイの比較を示している．
 図\ref{fig:NT4F_and_NT8M_accuracy}は，を見ると正確度のグラフはどちらも同じような形をしているが，8Mの方が上下に大きく変動していることが分かる．
-図\ref{fig:NT4F_and_NT8M_error_abs_diff}を見ると4Fの方が8M多くのprogressで絶対誤差が小さいことが分かる，これはprogress260を超えた辺りから顕著に現れている．
+図\ref{fig:NT4F_and_NT8M_error_abs}を見ると4Fの方が8M多くのprogressで絶対誤差が小さいことが分かる，これはprogress260を超えた辺りから顕著に現れている．
 progress260辺りは512のタイルが完成し以前と似ている盤面になるのだが，8Mタプルサイズが大きくなることで汎化性能が落ちて，
 序盤の盤面と全く別物として学習してしまい，512タイルが完成した後の盤面に対して正確度が下がり，絶対誤差も大きくなってるのではないかと考えられる．
 これは図\ref{fig:NT4F_and_NT8M_survival}の生存率にも表れていて生存率ではミスをした後のprogress300を超えた辺りから顕著に生存率が8Mの生存率が下がっている．
@@ -246,6 +246,6 @@ progress260辺りは512のタイルが完成し以前と似ている盤面にな
 
 図\ref{fig:EXP6_NT4FとNT8M_results}と図\ref{fig:EXP6_NT5M_and_NT7F_results}は，
 図\ref{fig:NT4F_and_NT8M_results}と図\ref{fig:NT5M_and_NT7F_results}のExpectimax探索深さ6を組み合わせたプレイヤである．
-それぞれのスコアとしては向上していてそれは図\ref{fig:EXP6_NT4F_and_NT8M_error_abs_diff}と図\ref{fig:EXP6_NT5M_and_NT7F_error_abs}
+それぞれのスコアとしては向上していてそれは図\ref{fig:EXP6_NT4F_and_NT8M_error_abs}と図\ref{fig:EXP6_NT5M_and_NT7F_error_abs}
 の絶対誤差と図\ref{fig:EXP6_NT4F_and_NT8M_survival}と図\ref{fig:EXP6_NT5M_and_NT7F_survival}の生存率に現れている．
 図\ref{fig:EXP6_NT4F_and_NT8M_accuracy}と図\ref{fig:EXP6_NT5M_and_NT7F_accuracy}の正確度はどちらも形はGreedyと似たような形になってる．
