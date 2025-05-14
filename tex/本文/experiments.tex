@@ -19,6 +19,16 @@
 % これらのプレイヤに対して，1000ゲームプレイを行い，
 % seed違いの結果をまとめた10000ゲームのログを用いて解析を行なった．
 
+\subsection{スコアとパラメータ数の関係}
+第1節で示した RQ1 について考察するため，Greedy プレイのスコアを，Optimistic initialization の初期値（$\mathit{OI}$）ごとにプロットしたものが図\ref{fig:score_vs_tuple_OI0}から図\ref{fig:score_vs_tuple_OI5400}である．これらのグラフは，横軸にパラメータ数の対数をとり，縦軸にスコアの平均値と標準偏差をプロットしている．また，それぞれのグラフの点に対し，パラメータ数の対数とスコアの関係を二次関数でフィッティングして得られる近似曲線も描いている．
+
+これらのグラフから，いずれのグラフもおよそ放物線を描いていることが分かる．
+とくに，\textsf{5M}から\textsf{6F}の区間に放物線の頂点が位置することが確認できた．
+また，$\mathit{OI}=0$の場合（図\ref{fig:score_vs_tuple_OI0}），3種類の初期値の中で標準偏差が大きいものが目立っている．このことは，Optimistic initializationを行わない学習では，学習の幅広さが足りず，安定的に良い結果が得られないことを意味する．
+$\mathit{OI}=1200$ と $\mathit{OI}=5400$の場合（図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:score_vs_tuple_OI5400}），スコアのばらつきは小さい．
+また，より多くのパラメータ数のところまでスコアの向上が見られる（すなわち，放物線の頂点が右に移動する）．
+\textsf{5F}よりもパラメータ数の少ないNタプルネットワークでは，平均スコアは初期値にそれほど依存していない．一方，それよりも多くのパラメータを持つNタプルネットワークでは，初期値が $\mathit{OI}=1200$ の場合に最も良い結果が得られた．
+
 \begin{figure}[t]
     \centering
     \begin{subfigure}[b]{\linewidth}
@@ -77,16 +87,6 @@
     \label{fig:score_vs_tuple_all_EXP6}
 \end{figure}
 
-\subsection{スコアとパラメータ数の関係}
-第1節で示した RQ1 について考察するため，Greedy プレイのスコアを，Optimistic initialization の初期値（$\mathit{OI}$）ごとにプロットしたものが図\ref{fig:score_vs_tuple_OI0}から図\ref{fig:score_vs_tuple_OI5400}である．これらのグラフは，横軸にパラメータ数の対数をとり，縦軸にスコアの平均値と標準偏差をプロットしている．また，それぞれのグラフの点に対し，パラメータ数の対数とスコアの関係を二次関数でフィッティングして得られる近似曲線も描いている．
-
-これらのグラフから，いずれのグラフもおよそ放物線を描いていることが分かる．
-とくに，\textsf{5M}から\textsf{6F}の区間に放物線の頂点が位置することが確認できた．
-また，$\mathit{OI}=0$の場合（図\ref{fig:score_vs_tuple_OI0}），3種類の初期値の中で標準偏差が大きいものが目立っている．このことは，Optimistic initializationを行わない学習では，学習の幅広さが足りず，安定的に良い結果が得られないことを意味する．
-$\mathit{OI}=1200$ と $\mathit{OI}=5400$の場合（図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:score_vs_tuple_OI5400}），スコアのばらつきは小さい．
-また，より多くのパラメータ数のところまでスコアの向上が見られる（すなわち，放物線の頂点が右に移動する）．
-\textsf{5F}よりもパラメータ数の少ないNタプルネットワークでは，平均スコアは初期値にそれほど依存していない．一方，それよりも多くのパラメータを持つNタプルネットワークでは，初期値が $\mathit{OI}=1200$ の場合に最も良い結果が得られた．
-
 次に，RQ1 と RQ3 について考察するため，深さ6のExpectimax探索を行った場合の，Nタプルネットワークのパラメータ数と平均スコアを関係を図\ref{fig:score_vs_tuple_OI0_EXP6}から図\ref{fig:score_vs_tuple_OI5400_EXP6}に示す．
 各グラフの近似曲線から，いずれのグラフもおよそ放物線を描いていること，いずれの平均スコアもGreedyプレイのスコアよりも高いことが確認できた．
 
@@ -97,22 +97,6 @@ $\mathit{OI}=1200$ の場合，\textsf{5M}から\textsf{7F}まで同程度の平
 これは，強いプレイヤが達成しうるスコアの上限に近づいていて向上の余地が小さいことと，弱いプレイヤが探索によってスコアを上昇させられることを示唆する．
 $\mathit{OI}=5400$ の場合には，スコアのばらつきは小さいものの，放物線の形やスコアの最大は $\mathit{OI}=0$ の場合のそれらとあまり変わらなかった．
 
-
-\subsection{学習の進み方の比較}
-
-RQ2 について考察するため，\textsf{5M}と\textsf{7M}を例にとり，学習過程のスコアの推移を確認した．図\ref{fig:learning_progress_comparison}は，横軸に学習ステップ数を，縦軸にスコアをとり，学習ステップ10000ごとに学習エピソードの平均をプロットしたものである．
-
-Optimistic initializationの初期値を $\mathit{OI}=0$ と設定した場合，\textsf{5M}では学習が進むにつれてスコアが上昇しているが，\textsf{7F}ではスコアが上昇していない．
-これは\textsf{7F}が局所最適解にハマっていることを示唆する．
-
-初期値を$\mathit{OI}=1200$と設定した場合，\textsf{5M}と\textsf{7F}の両方でスコアの上昇が $\mathit{OI}=0$ の場合よりも緩やかになった．
-詳しく見ると，\textsf{5M}では，約2800点を達成したあたりで途中一度停滞しており，その後再びスコアの上昇に転じている．
-表\ref{pp-specific}より，約2800点というのは256タイルが完成してから512タイルが完成するまでの間であることが分かる．
-この間の盤面では空きタイルが多くあるため，学習に出現する盤面の種類が多いことが停滞の原因ではないかと考えている．
-また，\textsf{7F}において初期値を $\mathit{OI}=1200$ と設定した場合，序盤のスコアの上昇が緩やかになっているが，これも同じ原因ではないかと考える．
-
-初期値を $\mathit{OI}=5400$ と設定した場合，\textsf{5M}と\textsf{7F}の両方でスコアの上昇が緩やかになり，途中で停滞が発生している．
-\textsf{5M}では停滞を乗り越えて大きくスコアを上昇させることに成功しているが，\textsf{7F}では停滞が長引いてしまい結果として学習不足であることが判明した．
 
 \begin{figure}[t]
     \centering
@@ -135,9 +119,33 @@ Optimistic initializationの初期値を $\mathit{OI}=0$ と設定した場合�
     \label{fig:learning_progress_comparison}
 \end{figure}
 
+\subsection{学習の進み方の比較}
+図\ref{fig:learning_progress_comparison}は，5Mと7Fの学習の際のスコアの推移を示している．
+このグラフではy軸にスコア,x軸に学習回数を取り，各学習回数ごとのスコアの平均を求め，
+それを学習回数10000ごとに移動平均を取り，グラフにプロットしている．
+
+OIの初期値を0に設定した場合(図\ref{fig:NT5M_OI0_learning_progress},図\ref{fig:NT7F_OI0_learning_progress})，NT5Mは学習が進むにつれてスコアが上昇しているが，NT7Fはスコアが上昇しないことが確認できた．
+これは7Fが局所最適解にハマっていることを示している．
+OIの初期値を1200に設定した場合(図\ref{fig:NT5M_OI1200_learning_progress},図\ref{fig:NT7F_OI1200_learning_progress})，NT5MとNT7Fの両方のスコアの上昇が緩やかになり，
+5Mの場合学習途中スコアとしては約2800点ほどで一度停滞が入り，その後再び上昇に転じている．
+このスコアの停滞しているのは表\ref{specific}を見ると256タイルが完成してから512タイルが完成するまでの間であることが分かる．
+この停滞期の盤面は盤面に比較的空きタイルがあり，色んな手を選択することで効率の悪い手を選んでしまい停滞しているのではないかと考えている．
+また，7FはOIの初期値を1200に設定した場合，序盤のスコアの上昇が緩やかになっているのも同じ原因ではないかと考える．
+OIの初期値を5400に設定した場合(図\ref{fig:NT5M_OI5400_learning_progress},図\ref{fig:NT7F_OI5400_learning_progress})，5Mと7Fの両方のスコアの上昇が緩やかになり，，両方とも途中で停滞が発生している．
+5Mは停滞を乗り越えて大きくスコアを上昇させているが，7Fは停滞が長引き大きなスコア上昇にまで至っていないので，
+学習不足であると考えている．
+
 \subsection{パラメータ数の増加によるプレイヤの挙動の変化}
-ここからOIの初期値1200のスコアが同等でパラメータ数が違う4Fと8M，5Mと7Fのプレイヤを比較して，
+% ここからRQ1についての考察を深めるために，
+OIの初期値1200のスコアが同等でパラメータ数が違う4Fと8M，5Mと7Fのプレイヤをパーフェクトプレイヤを用いて詳細な比較を行い，
 パラメータ数の増加がプレイヤの挙動にどのような影響を与えるのかについて詳しく調べて行く．
+指標としては，正確度，絶対誤差，生存率を用いる．
+\begin{itemize}
+    \item 正確度：パーフェクトプレイヤの選択した手とプレイヤの選択した手の一致率
+    \item 絶対誤差：パーフェクトプレイヤの選択した手とプレイヤの選択した手のパーフェクトプレイヤ評価値の差
+    \item 生存率：あるprogressにおいて，プレイヤが生存している確率
+\end{itemize}
+
 \begin{figure}[t]
 \centering
 \begin{subfigure}[b]{0.8\linewidth}
@@ -145,20 +153,10 @@ Optimistic initializationの初期値を $\mathit{OI}=0$ と設定した場合�
     \caption{正確度}
     \label{fig:NT4F_and_NT8M_accuracy}
 \end{subfigure}
-% \begin{subfigure}[b]{0.8\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/acc_diff_plot.pdf}
-%     \caption{正確度の差分}
-%     \label{fig:NT4F_and_NT8M_acc_diff}
-% \end{subfigure}
-% \begin{subfigure}[b]{0.49\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/error_abs_diff_plot.pdf}
-%     \caption{絶対誤差の差分}
-%     \label{fig:NT4F_and_NT8M_error_abs_diff}
-% \end{subfigure}
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/error_abs.pdf}
     \caption{絶対誤差}
-    \label{fig:NT4F_and_NT8M_error_abs_diff}
+    \label{fig:NT4F_and_NT8M_error_abs}
 \end{subfigure}
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/survival.pdf}
@@ -170,12 +168,11 @@ Optimistic initializationの初期値を $\mathit{OI}=0$ と設定した場合�
 \end{figure}
 
 まず初めに図\ref{fig:NT4F_and_NT8M_results}は，4Fと8MのプレイヤのGreedyプレイの比較を示している．
-\ref{fig:NT4F_and_NT8M_accuracy}と\ref{fig:NT4F_and_NT8M_acc_diff}は，4Fと8Mのプレイヤの正確度を示している．
-これを見ると序盤は4Fの方が正確度が高いが，中盤以降はどちらも抜きつ抜かれつの状態であることが分かる．
-\ref{fig:NT4F_and_NT8M_error_abs_diff}は，4Fと8Mのプレイヤの絶対誤差の差分を示している．
-これを見ると，4Fの方が8M多くのprogressで絶対誤差が小さいことが分かる．
-正確度のグラフと絶対誤差のグラフを合わせてみると，4Fの方が後半かなり良いことがわかる．
-これは\ref{fig:NT4F_and_NT8M_survival}の生存率のグラフにも表れている．
+図\ref{fig:NT4F_and_NT8M_accuracy}は，を見ると正確度のグラフはどちらも同じような形をしているが，8Mの方が上下に大きく変動していることが分かる．
+図\ref{fig:NT4F_and_NT8M_error_abs_diff}を見ると4Fの方が8M多くのprogressで絶対誤差が小さいことが分かる，これはprogress260を超えた辺りから顕著に現れている．
+progress260辺りは512のタイルが完成し以前と似ている盤面になるのだが，8Mタプルサイズが大きくなることで汎化性能が落ちて，
+序盤の盤面と全く別物として学習してしまい，512タイルが完成した後の盤面に対して正確度が下がり，絶対誤差も大きくなってるのではないかと考えられる．
+これは図\ref{fig:NT4F_and_NT8M_survival}の生存率にも表れていて生存率ではミスをした後のprogress300を超えた辺りから顕著に生存率が8Mの生存率が下がっている．
 
 \begin{figure}[t]
 \centering
@@ -184,15 +181,10 @@ Optimistic initializationの初期値を $\mathit{OI}=0$ と設定した場合�
     \caption{正確度}
     \label{fig:NT5M_and_NT7F_accuracy}
 \end{subfigure}
-% \begin{subfigure}[b]{0.8\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/acc_diff_plot.pdf}
-%     \caption{正確度の差分}
-%     \label{fig:NT5M_and_NT7F_acc_diff}
-% \end{subfigure}
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/error_abs.pdf}
     \caption{絶対誤差}
-    \label{fig:NT5M_and_NT7F_error_abs_diff}
+    \label{fig:NT5M_and_NT7F_error_abs}
 \end{subfigure}
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/survival.pdf}
@@ -204,37 +196,27 @@ Optimistic initializationの初期値を $\mathit{OI}=0$ と設定した場合�
 \end{figure}
 
 次に図\ref{fig:NT5M_and_NT7F_results}は，5Mと7FのプレイヤのGreedyプレイの比較を示している．
-\ref{fig:NT5M_and_NT7F_accuracy}と\ref{fig:NT5M_and_NT7F_acc_diff}を見ると
-5Mの方が7Fよりも正確度が高いことが分かる．
-\ref{fig:NT5M_and_NT7F_error_abs_diff}は，5Mと7Fのプレイヤの絶対誤差の差分を示している．
-これを見ると，5Mの方が7Fよりも絶対誤差が小さいprogressが多いことが分かる．
-\ref{fig:NT5M_and_NT7F_survival}は，5Mと7Fのプレイヤの生存率を示している．
-これを見るとどちらも上下を入れ替わりながら似たような形になっていることが分かる．
-
-図\ref{fig:NT4F_and_NT8M_results}と図\ref{fig:NT5M_and_NT7F_results}は，Greedyプレイの結果を示しているが，
-どちらの結果からも特徴的な形は見られなかった．
+図\ref{fig:NT5M_and_NT7F_accuracy}を見ると形は似ているが，両方の正確度が下がる場面で7Fの方が正確度が下がっているのが分かる．
+図\ref{fig:NT5M_and_NT7F_error_abs}を見ると，どちらもほぼ同じ形になっていて，正確度ほど差のないグラフになっている
+これは7Fは間違えても問題ない手を選んでいるだけで学習自体は十分に成功していることがわかる．
+図\ref{fig:NT5M_and_NT7F_survival}を見るとどちらも上下を入れ替わりながら似たような形になっていることが分かる．
     
 \begin{figure}[t]
 \centering
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/accuracy.pdf}
     \caption{正確度}
-    \label{fig:EXP6_:NT4F_and_NT8M_accuracy}
+    \label{fig:EXP6_NT4F_and_NT8M_accuracy}
 \end{subfigure}
-% \begin{subfigure}[b]{0.49\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/acc_diff_plot.pdf}
-%     \caption{正確度の差分}
-%     \label{fig:EXP6_NT4F_and_NT8M_acc_diff}
-% \end{subfigure}
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/error_abs.pdf}
     \caption{絶対誤差}
-    \label{fig:EXP6_NT4F_and_NT8M_error_abs_diff}
+    \label{fig:EXP6_NT4F_and_NT8M_error_abs}
 \end{subfigure}
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/survival.pdf}
     \caption{生存率}
-    \label{figEXP6_:NT4F_and_NT8M_survival}
+    \label{fig:EXP6_NT4F_and_NT8M_survival}
 \end{subfigure}
 \caption{4Fと8Mの比較結果(深さ6)}
 \label{fig:EXP6_NT4FとNT8M_results}
@@ -248,15 +230,10 @@ Optimistic initializationの初期値を $\mathit{OI}=0$ と設定した場合�
     \caption{正確度}
     \label{fig:EXP6_NT5M_and_NT7F_accuracy}
 \end{subfigure}
-% \begin{subfigure}[b]{0.8\linewidth}
-%     \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/acc_diff_plot.pdf}
-%     \caption{正確度の差分}
-%     \label{fig:EXP6_NT5M_and_NT7F_acc_diff}
-% \end{subfigure}
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/error_abs.pdf}
     \caption{絶対誤差}
-    \label{fig:EXP6_NT5M_and_NT7F_error_abs_diff}
+    \label{fig:EXP6_NT5M_and_NT7F_error_abs}
 \end{subfigure}
 \begin{subfigure}[b]{0.8\linewidth}
     \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/survival.pdf}
@@ -269,7 +246,6 @@ Optimistic initializationの初期値を $\mathit{OI}=0$ と設定した場合�
 
 図\ref{fig:EXP6_NT4FとNT8M_results}と図\ref{fig:EXP6_NT5M_and_NT7F_results}は，
 図\ref{fig:NT4F_and_NT8M_results}と図\ref{fig:NT5M_and_NT7F_results}のExpectimax探索深さ6を組み合わせたプレイヤである．
-図\ref{fig:EXP6_:NT4F_and_NT8M_accuracy}と図\ref{fig:EXP6_NT4F_and_NT8M_acc_diff}を見ると正確性はNT4Fの方が良い
-図\ref{fig:EXP6_NT5M_and_NT7F_accuracy}と図\ref{fig:EXP6_NT5M_and_NT7F_acc_diff}を見ると正確性はNT5Mの方が良い
-図\ref{fig:EXP6_NT4F_and_NT8M_error_abs_diff}と図\ref{fig:EXP6_NT5M_and_NT7F_error_abs_diff}は絶対誤差の差分を示していて，
-ここは探索を加えたことで上下の振れ幅がとても小さくなっていることが分かるが結局どちらの結果からも特徴的な形は見られなかった．
+それぞれのスコアとしては向上していてそれは図\ref{fig:EXP6_NT4F_and_NT8M_error_abs_diff}と図\ref{fig:EXP6_NT5M_and_NT7F_error_abs}
+の絶対誤差と図\ref{fig:EXP6_NT4F_and_NT8M_survival}と図\ref{fig:EXP6_NT5M_and_NT7F_survival}の生存率に現れている．
+図\ref{fig:EXP6_NT4F_and_NT8M_accuracy}と図\ref{fig:EXP6_NT5M_and_NT7F_accuracy}の正確度はどちらも形はGreedyと似たような形になってる．
