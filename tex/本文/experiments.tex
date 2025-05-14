@@ -1,35 +1,40 @@
 \section{実験}
 
-本研究では，ミニ2048におけるNタプルネットワークの学習性能を多角的に分析するため，
-構造の異なる複数のプレイヤを構築し，GreedyおよびExpectimax探索による評価を行った．
+前節で説明した方法により，15種類のNタプルネットワークのそれぞれについて，Optimistic initialization の初期値 $\mathit{OI}$ を3通り変えて学習を行った．
+ランダム性の影響を抑えるため，各条件について乱数のシードを変えて10回の学習を行い，10個のNタプルネットワークを得た．
+次に，各Nタプルネットワークに対し，GreedyプレイおよびExpectimax探索（深さ2〜6）により1000ゲームのプレイを行い，それらの平均スコアを求めた．
+本節のグラフにおいて，10個のNタプルネットワークの平均を点や線で示し，それらの標準偏差をエラーバー等で示す．
 
-\ref{tuples}で示した15種類のプレイヤを用いて評価を行った．
+% 本研究では，ミニ2048におけるNタプルネットワークの学習性能を多角的に分析するため，
+% 構造の異なる複数のプレイヤを構築し，GreedyおよびExpectimax探索による評価を行った．
 
-さらに，Optimistic Initialization（OI）の影響を調べるため，
-各プレイヤについてOIの初期値を0，1200，5400に設定し，それぞれ学習を実施した．
-すべてのプレイヤは $5 \times 10^8$ 手分の行動に基づいて学習を行い，
-乱数シードを変えて10体ずつ学習させた．結果として，
-$15$タプル構成$\times 3$回（OIの初期値）$\times 10$回（シード）で，計$450$体のプレイヤが作成された．
+% \ref{tuples}で示した15種類のプレイヤを用いて評価を行った．
 
-これらのプレイヤに対して，GreedyプレイおよびExpectimax探索（深さ2〜6）による1000ゲームプレイを行い，
-seed違いの結果をまとめた10000ゲームのログを用いて解析を行なった．
+% さらに，Optimistic Initialization（OI）の影響を調べるため，
+% 各プレイヤについてOIの初期値を0，1200，5400に設定し，それぞれ学習を実施した．
+% すべてのプレイヤは $5 \times 10^8$ 手分の行動に基づいて学習を行い，
+% 乱数シードを変えて10体ずつ学習させた．結果として，
+% $15$タプル構成$\times 3$回（OIの初期値）$\times 10$回（シード）で，計$450$体のプレイヤが作成された．
+
+% これらのプレイヤに対して，1000ゲームプレイを行い，
+% seed違いの結果をまとめた10000ゲームのログを用いて解析を行なった．
 
 \subsection{スコアとパラメータ数の関係}
-まず初めに図\ref{fig:score_vs_tuple_OI0}から図\ref{fig:score_vs_tuple_OI5400}は，OIの初期値を変えた場合のGreedyプレイでのパラメータ数の対数とスコアの関係を示している．
-グラフの点がseedごとの平均スコアの平均,点から伸びる線がseedごとの平均スコアの標準偏差を示している．
+第1節で示した RQ1 について考察するため，Greedy プレイのスコアを，Optimistic initialization の初期値（$\mathit{OI}$）ごとにプロットしたものが図\ref{fig:score_vs_tuple_OI0}から図\ref{fig:score_vs_tuple_OI5400}である．これらのグラフは，横軸にパラメータ数の対数をとり，縦軸にスコアの平均値と標準偏差をプロットしている．また，それぞれのグラフの点に対し，パラメータ数の対数とスコアの関係を二次関数でフィッティングして得られる近似曲線も描いている．
 
-いずれのグラフも放物線を描いており，5F，5M，6F，6Mいずれかを頂点とすることが確認できた．
-また，図\ref{fig:score_vs_tuple_OI0}OIの初期値を0に設定した場合，3種類のOIの初期値の中で平均の標準偏差が大きいものがいくつか目立ち学習の安定性に影響を与えることが確認できた．
-OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:score_vs_tuple_OI5400})に設定した場合，スコアのばらつきは小さくなり，
-スコアの向上がパラメータ数を増加させても続き，放物線の頂点が右に移動する傾向が見られた．
-平均の平均自体はあまり大きく変化しなかったが，図\ref{fig:score_vs_tuple_OI1200}OIの初期値を1200に設定したものが良い傾向にあった．
+これらのグラフから，いずれのグラフもおよそ放物線を描いていることが分かる．
+とくに，\textsf{5M}から\textsf{6F}の区間に放物線の頂点が位置することが確認できた．
+また，$\mathit{OI}=0$の場合（図\ref{fig:score_vs_tuple_OI0}），3種類の初期値の中で標準偏差が大きいものが目立っている．このことは，Optimistic initializationを行わない学習では，学習の幅広さが足りず，安定的に良い結果が得られないことを意味する．
+$\mathit{OI}=1200$ と $\mathit{OI}=5400$の場合（図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:score_vs_tuple_OI5400}），スコアのばらつきは小さい．
+また，より多くのパラメータ数のところまでスコアの向上が見られる（すなわち，放物線の頂点が右に移動する）．
+\textsf{5F}よりもパラメータ数の少ないNタプルネットワークでは，平均スコアは初期値にそれほど依存していない．一方，それよりも多くのパラメータを持つNタプルネットワークでは，初期値が $\mathit{OI}=1200$ の場合に最も良い結果が得られた．
 
 \begin{figure}[t]
     \centering
     \begin{subfigure}[b]{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI0_EXP1.pdf}
-        \caption{タプル数の変化によるスコアの変化（OI=0）}
+        \caption{OI=0}
         \label{fig:score_vs_tuple_OI0}
     \end{subfigure}
 
@@ -37,7 +42,7 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     \begin{subfigure}[b]{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI1200_EXP1.pdf}
-        \caption{タプル数の変化によるスコアの変化（OI=1200）}
+        \caption{OI=1200}
         \label{fig:score_vs_tuple_OI1200}
     \end{subfigure}
 
@@ -45,11 +50,11 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     \begin{subfigure}[b]{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI5400_EXP1.pdf}
-        \caption{タプル数の変化によるスコアの変化（OI=5400）}
+        \caption{OI=5400}
         \label{fig:score_vs_tuple_OI5400}
     \end{subfigure}
 
-    \caption{OIの初期値ごとのタプル数の変化によるスコアの変化}
+    \caption{Greedyプレイにおいて，パラメータ数と平均スコアの関係}
     \label{fig:score_vs_tuple_all}
 \end{figure}
 
@@ -58,7 +63,7 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     \begin{subfigure}[b]{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI0_EXP6.pdf}
-        \caption{タプル数の変化によるスコアの変化 深さ6（OI=0）}
+        \caption{OI=0}
         \label{fig:score_vs_tuple_OI0_EXP6}
     \end{subfigure}
 
@@ -66,7 +71,7 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     \begin{subfigure}[b]{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI1200_EXP6.pdf}
-        \caption{タプル数の変化によるスコアの変化 深さ6（OI=1200）}
+        \caption{OI=1200}
         \label{fig:score_vs_tuple_OI1200_EXP6}
     \end{subfigure}
 
@@ -74,23 +79,23 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     \begin{subfigure}[b]{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{pdf/parameter_performance_plots/params_performance_OI5400_EXP6.pdf}
-        \caption{タプル数の変化によるスコアの変化 深さ6（OI=5400）}
+        \caption{OI=5400}
         \label{fig:score_vs_tuple_OI5400_EXP6}
     \end{subfigure}
 
-    \caption{Expectimax深さ6でのOIの初期値ごとのタプル数の変化によるスコアの変化}
+    \caption{Expectimax深さ6において，パラメータ数と平均スコアの関係}
     \label{fig:score_vs_tuple_all_EXP6}
 \end{figure}
 
-図\ref{fig:score_vs_tuple_OI0_EXP6}から図\ref{fig:score_vs_tuple_OI5400_EXP6}は，OIの初期値を変えた場合の各プレイヤとExpectimaxの深さ6を組み合わせたプレイヤでの，
-パラメータ数の対数とスコアの関係を示している．
-いずれのグラフも放物線を描いていること，いずれの平均の平均のスコアもGreedyプレイのスコアよりも高いことが確認できた．
-また，OIの初期値を0に設定した場合，探索を加えてもスコアのバラつきが多いプレイヤが見られた，特にFullタプルのスコアのバラつきが大きいことが確認できた．
+次に，RQ1 と RQ3 について考察するため，深さ6のExpectimax探索を行った場合の，Nタプルネットワークのパラメータ数と平均スコアを関係を図\ref{fig:score_vs_tuple_OI0_EXP6}から図\ref{fig:score_vs_tuple_OI5400_EXP6}に示す．
+各グラフの近似曲線から，いずれのグラフもおよそ放物線を描いていること，いずれの平均スコアもGreedyプレイのスコアよりも高いことが確認できた．
+
+$\mathit{OI}=0$ の場合，探索を行ってもスコアのばらつきはそれほど小さくならず，特に Full のものについてばらつきが大きい傾向が見られる．
 これはパラメータ数が多い方が評価値の修正が起こり難く，局所最適解から抜け出しにくいのではないかと考えられる．
-またOIの初期値を1200に設定したばあい5Mから7Fまでスコアにほとんど差がなく，放物線の上昇と下降の傾きが小さくなっていることが確認できた．
-これは強いプレイヤはNタプルプレイヤの現実的なスコア上限に近づいていて，ほとんど上昇しないことと，
-弱いプレイヤは探索によってスコアが上昇することを示している．
-またOIの初期値を5400に設定した場合，平均の標準偏差はとても小さくなったが，放物線の形やスコアの上限はOIの初期値0の時とあまり変わらなかった．
+
+$\mathit{OI}=1200$ の場合，\textsf{5M}から\textsf{7F}まで同程度の平均スコアを達成しており，放物線の上昇と下降の傾きが小さい．
+これは，強いプレイヤが達成しうるスコアの上限に近づいていて向上の余地が小さいことと，弱いプレイヤが探索によってスコアを上昇させられることを示唆する．
+$\mathit{OI}=5400$ の場合には，スコアのばらつきは小さいものの，放物線の形やスコアの最大は $\mathit{OI}=0$ の場合のそれらとあまり変わらなかった．
 
 
 \begin{figure}[t]
@@ -114,6 +119,7 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     \label{fig:learning_progress_comparison}
 \end{figure}
 
+\subsection{学習の進み方の比較}
 図\ref{fig:learning_progress_comparison}は，5Mと7Fの学習の際のスコアの推移を示している．
 このグラフではy軸にスコア,x軸に学習回数を取り，各学習回数ごとのスコアの平均を求め，
 それを学習回数10000ごとに移動平均を取り，グラフにプロットしている．
