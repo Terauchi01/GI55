@@ -6,7 +6,7 @@
 %% [noauthor]
 %%
 
-\documentclass[submit,techrep,noauthor,platex,dvipdfmx]{ipsj}
+\documentclass[techrep,submit,noauthor,platex,dvipdfmx]{ipsj}
 
 % フォントと日本語関連パッケージ
 % \usepackage[deluxe,uplatex]{otf}
@@ -24,17 +24,20 @@
 
 % その他のパッケージ
 \usepackage{url}
+\makeatletter
+\def\@footyear{2025}
+\makeatother
 
 % hyperrefは最後に読み込む
 % \usepackage[dvipdfmx,setpagesize=false]{hyperref}
 
-\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
-\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
-\def\|{\verb|}
+% \def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+% \def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
+% \def\|{\verb|}
 
-\setcounter{巻数}{59}
-\setcounter{号数}{1}
-\setcounter{page}{1}
+% \setcounter{巻数}{59}
+% \setcounter{号数}{1}
+% \setcounter{page}{1}
 
 
 % \受付{2016}{3}{4}
@@ -49,9 +52,9 @@
 \begin{document}
 
 
-\title{Nタプルネットワークの大きさと学習性能の関係:ミニ2048を用いた実験・評価}
+\title{Nタプルネットワークの大きさと学習性能の関係:\\ミニ2048を用いた実験・評価}
 
-\etitle{}
+% \etitle{}
 
 % \affiliate{IPSJ}{情報処理学会\\
 % IPSJ, Chiyoda, Tokyo 101--0062, Japan}
@@ -64,9 +67,9 @@ Kochi University of Technology\\}
 \author{松崎 公紀}{Matsuzaki Koki}{IPSJ}[matsuzaki.kiminori@kochi-tech.ac.jp]
 
 \begin{abstract}
-    2048では、NタプルネットワークとTD学習を拡張した手法及びExpectimax探索の組み合わせにより優れたプレイヤが作られている。
-    本研究では、ミニ2048において構築可能な1タプルから9タプルまでの各タプル全てからなる組み合わせと、それぞれにおける妥当な形状を用いて、Nタプルネットワークの大きさと学習性能の関係を実験的に評価する。
-    特に最先端プレイヤの開発で用いられた手法の観点から、その効果と特性について考察を行う。
+    2048では、NタプルネットワークとTD学習を拡張した手法及びExpectimax探索の組み合わせにより優れたプレイヤが作られている．
+    本研究では、ミニ2048において構築可能な1タプルから9タプルまでの各タプル全てからなる組み合わせと、それぞれにおける妥当な形状を用いて、Nタプルネットワークの大きさと学習性能の関係を実験的に評価する．
+    特に最先端プレイヤの開発で用いられた手法の観点から、その効果と特性について考察を行う．
 \end{abstract}
 
 
