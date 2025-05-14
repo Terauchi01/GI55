@@ -92,44 +92,22 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
 弱いプレイヤは探索によってスコアが上昇することを示している．
 またOIの初期値を5400に設定した場合，平均の標準偏差はとても小さくなったが，放物線の形やスコアの上限はOIの初期値0の時とあまり変わらなかった．
 
+
 \begin{figure}[t]
     \centering
-    % OI=0の比較
-    \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI0.pdf}
-        \caption{5M,OI=0学習推移}
-        \label{fig:NT5F_OI0_learning_progress}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI0.pdf}
-        \caption{7F,OI=0学習推移}
-        \label{fig:NT7F_OI0_learning_progress}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5M_tuple298_combined.pdf}
+        \caption{5Mの学習過程のスコアの変化}
+        \label{fig:learning_progress_NT5M}
     \end{subfigure}
 
     \vspace{1em}
-    % OI=1200の比較
-    \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI1200.pdf}
-        \caption{5M,OI=1200学習推移}
-        \label{fig:NT5M_OI1200_learning_progress}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI1200.pdf}
-        \caption{7F,OI=1200学習推移}
-        \label{fig:NT7F_OI1200_learning_progress}
-    \end{subfigure}
-
-    \vspace{1em}
-    % OI=5400の比較
-    \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI5400.pdf}
-        \caption{5M,OI=5400学習推移}
-        \label{fig:NT5M_OI5400_learning_progress}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\linewidth}
-        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI5400.pdf}
-        \caption{7F,OI=5400学習推移}
-        \label{fig:NT7F_OI5400_learning_progress}
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7F_tuple0_combined.pdf}
+        \caption{7Fの学習過程のスコアの変化}
+        \label{fig:learning_progress_NT7F}
     \end{subfigure}
 
     \caption{5Mと7Fの学習推移の比較}
@@ -284,7 +262,7 @@ OIの初期値を5400に設定した場合(図\ref{fig:NT5M_OI5400_learning_prog
 \end{figure}
 
 図\ref{fig:EXP6_NT4FとNT8M_results}と図\ref{fig:EXP6_NT5M_and_NT7F_results}は，
-図\ref{fig:NT4FとNT8M_results}と図\ref{fig:NT5M_and_NT7F_results}のExpectimax探索深さ6を組み合わせたプレイヤである．
+図\ref{fig:NT4F_and_NT8M_results}と図\ref{fig:NT5M_and_NT7F_results}のExpectimax探索深さ6を組み合わせたプレイヤである．
 図\ref{fig:EXP6_:NT4F_and_NT8M_accuracy}と図\ref{fig:EXP6_NT4F_and_NT8M_acc_diff}を見ると正確性はNT4Fの方が良い
 図\ref{fig:EXP6_NT5M_and_NT7F_accuracy}と図\ref{fig:EXP6_NT5M_and_NT7F_acc_diff}を見ると正確性はNT5Mの方が良い
 図\ref{fig:EXP6_NT4F_and_NT8M_error_abs_diff}と図\ref{fig:EXP6_NT5M_and_NT7F_error_abs_diff}は絶対誤差の差分を示していて，
