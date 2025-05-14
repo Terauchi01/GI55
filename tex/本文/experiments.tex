@@ -87,7 +87,7 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
 いずれのグラフも放物線を描いていること，いずれの平均の平均のスコアもGreedyプレイのスコアよりも高いことが確認できた．
 また，OIの初期値を0に設定した場合，探索を加えてもスコアのバラつきが多いプレイヤが見られた，特にFullタプルのスコアのバラつきが大きいことが確認できた．
 これはパラメータ数が多い方が評価値の修正が起こり難く，局所最適解から抜け出しにくいのではないかと考えられる．
-またOIの初期値を1200に設定したばあいNT5MからNT7Fまでスコアにほとんど差がなく，放物線の上昇と下降の傾きが小さくなっていることが確認できた．
+またOIの初期値を1200に設定したばあい5Mから7Fまでスコアにほとんど差がなく，放物線の上昇と下降の傾きが小さくなっていることが確認できた．
 これは強いプレイヤはNタプルプレイヤの現実的なスコア上限に近づいていて，ほとんど上昇しないことと，
 弱いプレイヤは探索によってスコアが上昇することを示している．
 またOIの初期値を5400に設定した場合，平均の標準偏差はとても小さくなったが，放物線の形やスコアの上限はOIの初期値0の時とあまり変わらなかった．
@@ -97,12 +97,12 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     % OI=0の比較
     \begin{subfigure}[b]{0.49\linewidth}
         \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI0.pdf}
-        \caption{NT5M,OI=0学習推移}
+        \caption{5M,OI=0学習推移}
         \label{fig:NT5F_OI0_learning_progress}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\linewidth}
         \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI0.pdf}
-        \caption{NT7F,OI=0学習推移}
+        \caption{7F,OI=0学習推移}
         \label{fig:NT7F_OI0_learning_progress}
     \end{subfigure}
 
@@ -110,12 +110,12 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     % OI=1200の比較
     \begin{subfigure}[b]{0.49\linewidth}
         \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI1200.pdf}
-        \caption{NT5M,OI=1200学習推移}
+        \caption{5M,OI=1200学習推移}
         \label{fig:NT5M_OI1200_learning_progress}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\linewidth}
         \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI1200.pdf}
-        \caption{NT7F,OI=1200学習推移}
+        \caption{7F,OI=1200学習推移}
         \label{fig:NT7F_OI1200_learning_progress}
     \end{subfigure}
 
@@ -123,36 +123,36 @@ OIの初期値を1200,5400(図\ref{fig:score_vs_tuple_OI1200}，図\ref{fig:scor
     % OI=5400の比較
     \begin{subfigure}[b]{0.49\linewidth}
         \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT5_tuple298_OI5400.pdf}
-        \caption{NT5M,OI=5400学習推移}
+        \caption{5M,OI=5400学習推移}
         \label{fig:NT5M_OI5400_learning_progress}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\linewidth}
         \includegraphics[width=\linewidth]{pdf/learning_progress_plots/learning_progress_NT7_tuple248_OI5400.pdf}
-        \caption{NT7F,OI=5400学習推移}
+        \caption{7F,OI=5400学習推移}
         \label{fig:NT7F_OI5400_learning_progress}
     \end{subfigure}
 
-    \caption{NT5MとNT7Fの学習推移の比較}
+    \caption{5Mと7Fの学習推移の比較}
     \label{fig:learning_progress_comparison}
 \end{figure}
 
-図\ref{fig:learning_progress_comparison}は，NT5MとNT7Fの学習の際のスコアの推移を示している．
+図\ref{fig:learning_progress_comparison}は，5Mと7Fの学習の際のスコアの推移を示している．
 このグラフではy軸にスコア,x軸に学習回数を取り，各学習回数ごとのスコアの平均を求め，
 それを学習回数10000ごとに移動平均を取り，グラフにプロットしている．
 
 OIの初期値を0に設定した場合(図\ref{fig:NT5M_OI0_learning_progress},図\ref{fig:NT7F_OI0_learning_progress})，NT5Mは学習が進むにつれてスコアが上昇しているが，NT7Fはスコアが上昇しないことが確認できた．
-これはNT7Fが局所最適解にハマっていることを示している．
+これは7Fが局所最適解にハマっていることを示している．
 OIの初期値を1200に設定した場合(図\ref{fig:NT5M_OI1200_learning_progress},図\ref{fig:NT7F_OI1200_learning_progress})，NT5MとNT7Fの両方のスコアの上昇が緩やかになり，
-NT5Mの場合学習途中スコアとしては約2800点ほどで一度停滞が入り，その後再び上昇に転じている．
+5Mの場合学習途中スコアとしては約2800点ほどで一度停滞が入り，その後再び上昇に転じている．
 このスコアの停滞しているのは表\ref{specific}を見ると256タイルが完成してから512タイルが完成するまでの間であることが分かる．
 この停滞期の盤面は盤面に比較的空きタイルがあり，色んな手を選択することで効率の悪い手を選んでしまい停滞しているのではないかと考えている．
-また，NT7FはOIの初期値を1200に設定した場合，序盤のスコアの上昇が緩やかになっているのも同じ原因ではないかと考える．
-OIの初期値を5400に設定した場合(図\ref{fig:NT5M_OI5400_learning_progress},図\ref{fig:NT7F_OI5400_learning_progress})，NT5MとNT7Fの両方のスコアの上昇が緩やかになり，，両方とも途中で停滞が発生している．
-NT5Mは停滞を乗り越えて大きくスコアを上昇させているが，NT7Fは停滞が長引き大きなスコア上昇にまで至っていないので，
+また，7FはOIの初期値を1200に設定した場合，序盤のスコアの上昇が緩やかになっているのも同じ原因ではないかと考える．
+OIの初期値を5400に設定した場合(図\ref{fig:NT5M_OI5400_learning_progress},図\ref{fig:NT7F_OI5400_learning_progress})，5Mと7Fの両方のスコアの上昇が緩やかになり，，両方とも途中で停滞が発生している．
+5Mは停滞を乗り越えて大きくスコアを上昇させているが，7Fは停滞が長引き大きなスコア上昇にまで至っていないので，
 学習不足であると考えている．
 
 \subsection{パラメータ数の増加によるプレイヤの挙動の変化}
-ここからOIの初期値1200のスコアが同等でパラメータ数が違うNT4FとNT8M，NT5MとNT7Fのプレイヤを比較して，
+ここからOIの初期値1200のスコアが同等でパラメータ数が違う4Fと8M，5Mと7Fのプレイヤを比較して，
 パラメータ数の増加がプレイヤの挙動にどのような影響を与えるのかについて詳しく調べて行く．
 \begin{figure}[t]
 \centering
@@ -166,8 +166,13 @@ NT5Mは停滞を乗り越えて大きくスコアを上昇させているが，N
     \caption{正確度の差分}
     \label{fig:NT4F_and_NT8M_acc_diff}
 \end{subfigure}
+% \begin{subfigure}[b]{0.49\linewidth}
+%     \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/error_abs_diff_plot.pdf}
+%     \caption{絶対誤差の差分}
+%     \label{fig:NT4F_and_NT8M_error_abs_diff}
+% \end{subfigure}
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/error_abs_diff_plot.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/NT4F_and_NT8M/error_abs.pdf}
     \caption{絶対誤差の差分}
     \label{fig:NT4F_and_NT8M_error_abs_diff}
 \end{subfigure}
@@ -176,16 +181,16 @@ NT5Mは停滞を乗り越えて大きくスコアを上昇させているが，N
     \caption{生存率}
     \label{fig:NT4F_and_NT8M_survival}
 \end{subfigure}
-\caption{NT4FとNT8Mの比較結果}
+\caption{4Fと8Mの比較結果}
 \label{fig:NT4F_and_NT8M_results}
 \end{figure}
 
-まず初めに図\ref{fig:NT4F_and_NT8M_results}は，NT4FとNT8MのプレイヤのGreedyプレイの比較を示している．
-\ref{fig:NT4F_and_NT8M_accuracy}と\ref{fig:NT4F_and_NT8M_acc_diff}は，NT4FとNT8Mのプレイヤの正確度を示している．
-これを見ると序盤はNT4Fの方が正確度が高いが，中盤以降はどちらも抜きつ抜かれつの状態であることが分かる．
-\ref{fig:NT4F_and_NT8M_error_abs_diff}は，NT4FとNT8Mのプレイヤの絶対誤差の差分を示している．
-これを見ると，NT4Fの方がNT8M多くのprogressで絶対誤差が小さいことが分かる．
-正確度のグラフと絶対誤差のグラフを合わせてみると，NT4Fの方が後半かなり良いことがわかる．
+まず初めに図\ref{fig:NT4F_and_NT8M_results}は，4Fと8MのプレイヤのGreedyプレイの比較を示している．
+\ref{fig:NT4F_and_NT8M_accuracy}と\ref{fig:NT4F_and_NT8M_acc_diff}は，4Fと8Mのプレイヤの正確度を示している．
+これを見ると序盤は4Fの方が正確度が高いが，中盤以降はどちらも抜きつ抜かれつの状態であることが分かる．
+\ref{fig:NT4F_and_NT8M_error_abs_diff}は，4Fと8Mのプレイヤの絶対誤差の差分を示している．
+これを見ると，4Fの方が8M多くのprogressで絶対誤差が小さいことが分かる．
+正確度のグラフと絶対誤差のグラフを合わせてみると，4Fの方が後半かなり良いことがわかる．
 これは\ref{fig:NT4F_and_NT8M_survival}の生存率のグラフにも表れている．
 
 \begin{figure}[t]
@@ -201,7 +206,7 @@ NT5Mは停滞を乗り越えて大きくスコアを上昇させているが，N
     \label{fig:NT5M_and_NT7F_acc_diff}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/error_abs_diff_plot.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/NT5M_and_NT7F/error_abs.pdf}
     \caption{絶対誤差の差分}
     \label{fig:NT5M_and_NT7F_error_abs_diff}
 \end{subfigure}
@@ -210,16 +215,16 @@ NT5Mは停滞を乗り越えて大きくスコアを上昇させているが，N
     \caption{生存率}
     \label{fig:NT5M_and_NT7F_survival}
 \end{subfigure}
-\caption{NT5MとNT7Fの比較結果}
+\caption{5Mと7Fの比較結果}
 \label{fig:NT5M_and_NT7F_results}
 \end{figure}
 
-次に図\ref{fig:NT5M_and_NT7F_results}は，NT5MとNT7FのプレイヤのGreedyプレイの比較を示している．
+次に図\ref{fig:NT5M_and_NT7F_results}は，5Mと7FのプレイヤのGreedyプレイの比較を示している．
 \ref{fig:NT5M_and_NT7F_accuracy}と\ref{fig:NT5M_and_NT7F_acc_diff}を見ると
-NT5Mの方がNT7Fよりも正確度が高いことが分かる．
-\ref{fig:NT5M_and_NT7F_error_abs_diff}は，NT5MとNT7Fのプレイヤの絶対誤差の差分を示している．
-これを見ると，NT5Mの方がNT7Fよりも絶対誤差が小さいprogressが多いことが分かる．
-\ref{fig:NT5M_and_NT7F_survival}は，NT5MとNT7Fのプレイヤの生存率を示している．
+5Mの方が7Fよりも正確度が高いことが分かる．
+\ref{fig:NT5M_and_NT7F_error_abs_diff}は，5Mと7Fのプレイヤの絶対誤差の差分を示している．
+これを見ると，5Mの方が7Fよりも絶対誤差が小さいprogressが多いことが分かる．
+\ref{fig:NT5M_and_NT7F_survival}は，5Mと7Fのプレイヤの生存率を示している．
 これを見るとどちらも上下を入れ替わりながら似たような形になっていることが分かる．
 
 図\ref{fig:NT4F_and_NT8M_results}と図\ref{fig:NT5M_and_NT7F_results}は，Greedyプレイの結果を示しているが，
@@ -238,7 +243,7 @@ NT5Mの方がNT7Fよりも正確度が高いことが分かる．
     \label{fig:EXP6_NT4F_and_NT8M_acc_diff}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/error_abs_diff_plot.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT4F_and_NT8M/error_abs.pdf}
     \caption{絶対誤差の差分}
     \label{fig:EXP6_NT4F_and_NT8M_error_abs_diff}
 \end{subfigure}
@@ -247,7 +252,7 @@ NT5Mの方がNT7Fよりも正確度が高いことが分かる．
     \caption{生存率}
     \label{figEXP6_:NT4F_and_NT8M_survival}
 \end{subfigure}
-\caption{NT4FとNT8Mの比較結果(深さ6)}
+\caption{4Fと8Mの比較結果(深さ6)}
 \label{fig:EXP6_NT4FとNT8M_results}
 \end{figure}
     
@@ -265,7 +270,7 @@ NT5Mの方がNT7Fよりも正確度が高いことが分かる．
     \label{fig:EXP6_NT5M_and_NT7F_acc_diff}
 \end{subfigure}
 \begin{subfigure}[b]{0.49\linewidth}
-    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/error_abs_diff_plot.pdf}
+    \includegraphics[width=\linewidth]{pdf/compare/EXP6_NT5M_and_NT7F/error_abs.pdf}
     \caption{絶対誤差の差分}
     \label{fig:EXP6_NT5M_and_NT7F_error_abs_diff}
 \end{subfigure}
@@ -274,7 +279,7 @@ NT5Mの方がNT7Fよりも正確度が高いことが分かる．
     \caption{生存率}
     \label{fig:EXP6_NT5M_and_NT7F_survival}
 \end{subfigure}
-\caption{NT5MとNT7Fの比較結果(深さ6)}
+\caption{5Mと7Fの比較結果(深さ6)}
 \label{fig:EXP6_NT5M_and_NT7F_results}
 \end{figure}
 

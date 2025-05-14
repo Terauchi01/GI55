@@ -7,8 +7,8 @@ Gueiらの最新のプレイヤ~\cite{GuCW22}も，Matsuzaki~\cite{Mats16}が提
 
 本研究では，こうした知見を踏まえ，ミニ2048において1タプルから9タプルまでのNタプルネットワークを構築可能な全てのタプル列挙を行い，
 \begin{itemize}
-  \item M（Manual）: 人間の知見に基づいて、効果的と考えられるタイル位置のみを選択して構成したタプル集合。NT3Mなどの"M"はこれを表す
-  \item F（Full）: 指定したサイズのタプルについて、盤面上で連続するタイルの全ての組み合わせを使用したタプル集合。NT1Fなどの"F"はこれを表す
+  \item M（Manual）: 人間の知見に基づいて、効果的と考えられるタイル位置のみを選択して構成したタプル集合。3Mなどの"M"はこれを表す
+  \item F（Full）: 指定したサイズのタプルについて、盤面上で連続するタイルの全ての組み合わせを使用したタプル集合。1Fなどの"F"はこれを表す
 \end{itemize}
 
 この2つの設計方針に基づき、タプル数（N）を1から9まで変化させてネットワークを構築した。
@@ -23,97 +23,97 @@ Gueiらの最新のプレイヤ~\cite{GuCW22}も，Matsuzaki~\cite{Mats16}が提
 \begin{table}[t]
   \caption{タプルサイズと形状の一覧}
   \label{tuples}
-  \centering\begin{tabular}{ll}
+  \centering\begin{tabular}{llr}
    \hline
    \hline
-   タプル名 & \hspace{20pt}タプルの形状 \\
+   タプル名 & \hspace{20pt}タプルの組合せ & パラメータ数\\
    \hline
-   \raisebox{10pt}{NT1F}\raisebox{28pt}{~}
+   \raisebox{10pt}{1F}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/1tuple_6_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/1tuple_6_page2.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/1tuple_6_page3.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/1tuple_6_page3.pdf} & 66\\
    \hline
-   \raisebox{10pt}{NT2F}\raisebox{28pt}{~}
+   \raisebox{10pt}{2F}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/2tuple_12_page1.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/2tuple_12_page2.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/2tuple_12_page2.pdf}& 484\\
    \hline
-   \raisebox{10pt}{NT3M}\raisebox{28pt}{~}
+   \raisebox{10pt}{3M}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/3tuple_144_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/3tuple_144_page3.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/3tuple_144_page2.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/3tuple_144_page2.pdf}& 7,986\\
    \hline
-   \raisebox{10pt}{NT3F}\raisebox{28pt}{~}
+   \raisebox{10pt}{3F}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/3tuple_2673_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/3tuple_2673_page5.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/3tuple_2673_page2.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/3tuple_2673_page4.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/3tuple_2673_page3.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/3tuple_2673_page3.pdf}& 13,310\\
    \hline
-   \raisebox{10pt}{NT4M}\raisebox{28pt}{~}
+   \raisebox{10pt}{4M}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/4tuple_301_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/4tuple_301_page3.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/4tuple_301_page2.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/4tuple_301_page2.pdf}& 87,846\\
    \hline
-   \raisebox{10pt}{NT4F}\raisebox{28pt}{~}
+   \raisebox{10pt}{4F}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/4tuple_44755_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/4tuple_44755_page5.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/4tuple_44755_page3.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/4tuple_44755_page3.pdf}& \multirow{2}{*}{175,692}\\
           & \includegraphics[height=22pt]{pdf/tuples/4tuple_44755_page6.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/4tuple_44755_page2.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/4tuple_44755_page4.pdf}\\
    \hline
-   \raisebox{10pt}{NT5M}\raisebox{28pt}{~}
+   \raisebox{10pt}{5M}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/5tuple_298_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/5tuple_298_page2.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/5tuple_298_page3.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/5tuple_298_page3.pdf} & 966306\\
    \hline
-   \raisebox{10pt}{NT5F}\raisebox{28pt}{~}
+   \raisebox{10pt}{5F}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page3.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page4.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page2.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page5.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page5.pdf}& \multirow{2}{*}{2,898,918}\\
           & \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page6.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page7.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page8.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/5tuple_896673_page9.pdf}\\
    \hline
-   \raisebox{10pt}{NT6M}\raisebox{28pt}{~}
+   \raisebox{10pt}{6M}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/6tuple_16_page1.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/6tuple_16_page2.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/6tuple_16_page2.pdf} & 7086244\\
    \hline
-   \raisebox{10pt}{NT6F}\raisebox{28pt}{~}
+   \raisebox{10pt}{6F}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page2.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page3.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page4.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page4.pdf}& \multirow{2}{*}{28,344,976}\\
           & \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page5.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page6.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page7.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/6tuple_26835_page8.pdf}\\
    \hline
-   \raisebox{10pt}{NT7M}\raisebox{28pt}{~}
-          & \includegraphics[height=22pt]{pdf/tuples/7tuple_0_page1.pdf}\\
+   \raisebox{10pt}{7M}\raisebox{28pt}{~}
+          & \includegraphics[height=22pt]{pdf/tuples/7tuple_0_page1.pdf} & 38,974,342\\
    \hline
-   \raisebox{10pt}{NT7F}\raisebox{28pt}{~}
+   \raisebox{10pt}{7F}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/7tuple_248_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/7tuple_248_page2.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/7tuple_248_page3.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/7tuple_248_page4.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/7tuple_248_page4.pdf}& \multirow{2}{*}{272,820,394}\\
           & \includegraphics[height=22pt]{pdf/tuples/7tuple_248_page5.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/7tuple_248_page6.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/7tuple_248_page7.pdf}\\
    \hline
-   \raisebox{10pt}{NT8M}\raisebox{28pt}{~}
-          & \includegraphics[height=22pt]{pdf/tuples/8tuple_0_page1.pdf}\\
+   \raisebox{10pt}{8M}\raisebox{28pt}{~}
+          & \includegraphics[height=22pt]{pdf/tuples/8tuple_0_page1.pdf} & 428,717,762\\
    \hline
-   \raisebox{10pt}{NT8F}\raisebox{28pt}{~}
+   \raisebox{10pt}{8F}\raisebox{28pt}{~}
           & \includegraphics[height=22pt]{pdf/tuples/8tuple_6_page1.pdf}~
             \includegraphics[height=22pt]{pdf/tuples/8tuple_6_page2.pdf}~
-            \includegraphics[height=22pt]{pdf/tuples/8tuple_6_page3.pdf}\\
+            \includegraphics[height=22pt]{pdf/tuples/8tuple_6_page3.pdf} & 1,286,153,286\\
    \hline
-   \raisebox{10pt}{NT9F}\raisebox{28pt}{~}
-          & \includegraphics[height=22pt]{pdf/tuples/9tuple_0_page1.pdf}\\
+   \raisebox{10pt}{9F}\raisebox{28pt}{~}
+          & \includegraphics[height=22pt]{pdf/tuples/9tuple_0_page1.pdf} & 4,715,895,382\\
    \hline
   \end{tabular}
 \end{table}
@@ -129,29 +129,29 @@ Nタプルネットワークの重みは，afterstate 間の評価値の差に�
 
 それぞれのNタプルニューラルネットワークに対して，$5\times 10^8$ 局面分のデータで学習を行った．いずれのニューラルネットワークも，十分に学習が収束していることを確認してある~\cite{TeKM23}．
 % \newpage
-\section{Expectimax探索}
-\label{sec:expectimax}
-Expectimax探索は，確率的一人ゲームにおける標準的な探索手法である．
-ミニ2048のゲームの進行は，state におけるプレイヤの選択と，afterstate における新規タイルの出現が交互に起こる．
-したがって，ミニ2048のゲーム木は，根が現在の state に対応し，根から葉への各パス上に，afterstate に対応するノード（chance ノード）と state に対応するノード（max ノード）が交互に現れる．本研究では，ミニ2048のゲーム木の高さ（探索の深さ）を，各パス上の afterstate に対応するノードの数と定める．例えば，高さ2 のミニ2048のゲーム木は，根，afterstate に対応するノードの層，state に対応するノードの層，afterstate に対応するノードの層，の合計4層からなる（図~\ref{result.Expectimax}）．
+% \section{Expectimax探索}
+% \label{sec:expectimax}
+% Expectimax探索は，確率的一人ゲームにおける標準的な探索手法である．
+% ミニ2048のゲームの進行は，state におけるプレイヤの選択と，afterstate における新規タイルの出現が交互に起こる．
+% したがって，ミニ2048のゲーム木は，根が現在の state に対応し，根から葉への各パス上に，afterstate に対応するノード（chance ノード）と state に対応するノード（max ノード）が交互に現れる．本研究では，ミニ2048のゲーム木の高さ（探索の深さ）を，各パス上の afterstate に対応するノードの数と定める．例えば，高さ2 のミニ2048のゲーム木は，根，afterstate に対応するノードの層，state に対応するノードの層，afterstate に対応するノードの層，の合計4層からなる（図~\ref{result.Expectimax}）．
 
-Expectimax探索では，ゲーム木の各ノードに対して次のように再帰的に計算を行う．
-\begin{itemize}
- \item maxノードでは，子要素の値のうちの最大値を計算する．
- \item chanceノードでは，子要素の値を，その出現確率を用いた重み付き平均を計算する．
-\end{itemize}
-Expectimax探索プレイヤは，Expectimax探索によって得られた子ノードのうち，評価値の最も大きなものを選択する．
+% Expectimax探索では，ゲーム木の各ノードに対して次のように再帰的に計算を行う．
+% \begin{itemize}
+%  \item maxノードでは，子要素の値のうちの最大値を計算する．
+%  \item chanceノードでは，子要素の値を，その出現確率を用いた重み付き平均を計算する．
+% \end{itemize}
+% Expectimax探索プレイヤは，Expectimax探索によって得られた子ノードのうち，評価値の最も大きなものを選択する．
 
-図\ref{result.Expectimax}に深さ2のExpectimax探索の例を示す．
+% 図\ref{result.Expectimax}に深さ2のExpectimax探索の例を示す．
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=.99\linewidth]{pdf/expectimax.pdf}
-  \caption{深さ 2 のExpectimax 探索の例}
-  \label{result.Expectimax} 
-\end{figure}
+% \begin{figure}[t]
+%   \centering
+%   \includegraphics[width=.99\linewidth]{pdf/expectimax.pdf}
+%   \caption{深さ 2 のExpectimax 探索の例}
+%   \label{result.Expectimax} 
+% \end{figure}
 
-ミニ2048のゲーム木では，特に，同じ afterstate が複数出現する．
-そのような同じ afterstate をまとめる（合流）工夫を実装した．ただし，合流を考慮しない Expectimax と結果が一致するよう，同じ afterstate であってもゲーム木中の深さが異なる場合には別のものとして扱った．この工夫により，特に深い探索において大幅な高速化が実現された．
-本研究では\cite{Terauchi24}で実装したExpectimax探索を用いた．
+% ミニ2048のゲーム木では，特に，同じ afterstate が複数出現する．
+% そのような同じ afterstate をまとめる（合流）工夫を実装した．ただし，合流を考慮しない Expectimax と結果が一致するよう，同じ afterstate であってもゲーム木中の深さが異なる場合には別のものとして扱った．この工夫により，特に深い探索において大幅な高速化が実現された．
+% 本研究では\cite{Terauchi24}で実装したExpectimax探索を用いた．
 % \newpage
